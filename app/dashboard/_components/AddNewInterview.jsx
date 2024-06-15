@@ -25,6 +25,9 @@ import { mockInterview } from '../../../utils/schema';
 import { useUser } from '@clerk/nextjs';
 import moment from 'moment';
 import {v4 as uuidv4} from 'uuid'
+// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+
  
  
 
@@ -40,6 +43,7 @@ function AddNewInterview() {
     const [jsonResp, setJsonResp] = useState()
     const {user} = useUser()
 
+    const router = useRouter()
 
      const handleSubmit = async (e) => { 
           e.preventDefault()
@@ -52,7 +56,7 @@ function AddNewInterview() {
         // const result =  run(prompt)
         const result = await chatSession.sendMessage(prompt);
 
-        // console.log(result.response.text())
+        console.log(result.response.text())
 
         const MockJsonResp = (result.response.text()).replace('```json' , '').replace('```' , '')
         // console.log(MockJsonResp)
@@ -75,6 +79,12 @@ function AddNewInterview() {
          }).returning({mockId:mockInterview.mockId})
 
           console.log(resp)
+
+
+          if(resp){
+            setDialogOpen(false)
+            router.push(`/dashboard/interview/${resp[0]?.mockId}`)
+          }
 
         } else {
           console.log('Error')
