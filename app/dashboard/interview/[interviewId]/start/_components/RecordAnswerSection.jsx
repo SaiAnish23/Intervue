@@ -1,16 +1,17 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect , useState } from 'react'
 import {  Lightbulb, WebcamIcon } from 'lucide-react';
 import {Button} from '../../../../../../components/ui/button'
 import useSpeechToText from 'react-hook-speech-to-text';
+import { Mic } from 'lucide-react';
 
 
 
 import Webcam from "react-webcam";
 
 function RecordAnswerSection() {
-
+     const [userAnswer, setUserAnswer] = useState('');
     const {
         error,
         interimResult,
@@ -24,7 +25,13 @@ function RecordAnswerSection() {
       });
 
 
-       
+       useEffect(() => {
+      
+         results.map((result) => (
+          setUserAnswer(prevAns=>prevAns+result?.transcript)
+         ))
+      }
+      , [results]);
 
   return (
 
@@ -49,7 +56,10 @@ function RecordAnswerSection() {
    />
 
 
-    </div>
+    </div> 
+
+
+    <div className='flex flex-col items-center justify-center mt-5'>
 
 
 
@@ -57,31 +67,44 @@ function RecordAnswerSection() {
     variant='outline'
 
     className='mt-5'
-    >
-        Record Answer
+
+    onClick={ 
+        isRecording ? 
+        stopSpeechToText : 
+        startSpeechToText
+    }
+    > {
+        isRecording  ?
+        <h2
+        className='flex items-center justify-center text-red-600'
+        >
+          <Mic/> Recording...
+        </h2>
+        :
+        'Record Answer'
+    
+    }
     </Button>
     
     
     
     
-    
-    <div>
-      <h1>Recording: {isRecording.toString()}</h1>
-      <button onClick={isRecording ? stopSpeechToText : startSpeechToText}>
-        {isRecording ? 'Stop Recording' : 'Start Recording'}
-      </button>
-      <ul>
-        {results.map((result) => (
-          <li key={result.timestamp}>{result.transcript}</li>
-        ))}
-        {interimResult && <li>{interimResult}</li>}
-      </ul>
+
     </div>
     
     
     
     
-    
+       <Button
+        className='mt-5'
+        onClick={()=>alert(userAnswer)}
+        variant='outline'
+       >
+
+
+          Show User Answer
+
+       </Button>
     
       </div>
 

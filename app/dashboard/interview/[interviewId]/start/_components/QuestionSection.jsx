@@ -1,9 +1,25 @@
-import { Lightbulb } from 'lucide-react'
+import { Lightbulb, Volume2 } from 'lucide-react'
 import React from 'react'
 
 function QuestionSection({mockInterviewQuestions , activeQuestion , setActiveQuestion}) {
 
     // console.log(mockInterviewQuestions)
+
+
+       const textToSpeech = (text) => { 
+
+
+           if('speechSynthesis' in window) {
+               let speech = new SpeechSynthesisUtterance(text);
+               speech.lang = 'en-US';
+               window.speechSynthesis.speak(speech)
+           }else{
+                alert('Your browser does not support text to speech')
+            
+           }
+
+       }
+
   return (
     <div
     className='p-5 border rounded-lg'
@@ -43,6 +59,10 @@ function QuestionSection({mockInterviewQuestions , activeQuestion , setActiveQue
        > {
              mockInterviewQuestions && mockInterviewQuestions[activeQuestion].question}
          </h2>
+
+         <Volume2 
+           onClick={ ()=>textToSpeech(mockInterviewQuestions && mockInterviewQuestions[activeQuestion].question)}
+         />
 
 
          <div
