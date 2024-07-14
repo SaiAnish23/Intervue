@@ -51,7 +51,7 @@ function AddNewInterview() {
 
           // console.log(jobPosition, jobDescription, yearsOfExperience)
 
-       let prompt =   "Given the job position as '" + jobPosition + "', the job description as '" + jobDescription + "', and the required years of experience as '" + yearsOfExperience + "', please generate five interview questions and their corresponding answers in JSON format. The questions should be tailored to understand the candidate's skills, experiences, and fit for the role. No Need to gove answers"
+       let prompt =   "Given the job position as '" + jobPosition + "', the job description as '" + jobDescription + "', and the required years of experience as '" + yearsOfExperience + "', please generate five interview questions and their corresponding answers in JSON format. The questions should be tailored to understand the candidate's skills, experiences, and fit for the role. The answers should be detailed and insightful. Please provide the questions and answers in JSON format.```json"
         // console.log(prompt)
         // const result =  run(prompt)
         const result = await chatSession.sendMessage(prompt);
