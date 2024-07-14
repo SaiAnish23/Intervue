@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm';
 
 import  QuestionSection  from '../start/_components/QuestionSection'
 import RecordAnswerSection from '../start/_components/RecordAnswerSection'
+import {Button} from '../../../../../components/ui/button'
 
 
 function page({params}) {
@@ -57,7 +58,35 @@ function page({params}) {
 
 
           {/*  Video /audio compoement */}
-          <RecordAnswerSection/>
+          <RecordAnswerSection 
+           mockInterviewQuestions={mockInterviewQuestions} 
+           activeQuestion={activeQuestion} 
+           interview={interview}
+           
+          />
+
+
+
+          <div 
+          className='flex justify-end gap-6 mt-5'
+          > {
+            activeQuestion > 0  &&  <Button>
+            Previos Question
+          </Button>
+          }
+           
+               {
+            activeQuestion < mockInterviewQuestions?.length - 1 &&  <Button> 
+            Next Question
+          </Button>
+               }
+          
+
+
+             <Button>
+              Submit Interview
+             </Button>
+          </div>
 
 
 
