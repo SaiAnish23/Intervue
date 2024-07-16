@@ -30,6 +30,7 @@ function RecordAnswerSection({mockInterviewQuestions , activeQuestion , intervie
         results,
         startSpeechToText,
         stopSpeechToText,
+        setResults
       } = useSpeechToText({
         continuous: true,
         useLegacyResults: false
@@ -104,7 +105,10 @@ console.log(jsonResp)
 if(resp){
   toast('Answer Recorded Successfully')
   setUserAnswer('')
+  setResults([])
 }else{
+  setResults([])
+
   toast('Error Recording Answer')
 }
 
