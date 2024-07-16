@@ -1,6 +1,7 @@
 import React from 'react'
 // import { UserButton } from '@clerk/nextjs'
 import AddNewInterview from './_components/AddNewInterview';
+import InterviewList from './_components/InterviewList'
 
 function page() {
   return (
@@ -23,6 +24,10 @@ function page() {
           <AddNewInterview/>
   
         </div>
+
+
+
+        <InterviewList/>
 
 
     </div>
