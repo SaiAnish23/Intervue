@@ -8,6 +8,7 @@ import { eq } from 'drizzle-orm';
 import  QuestionSection  from '../start/_components/QuestionSection'
 import RecordAnswerSection from '../start/_components/RecordAnswerSection'
 import {Button} from '../../../../../components/ui/button'
+import Link from 'next/link';
 
 
 function page({params}) {
@@ -70,22 +71,35 @@ function page({params}) {
           <div 
           className='flex justify-end gap-6 mt-5'
           > {
-            activeQuestion > 0  &&  <Button>
+            activeQuestion > 0  &&  <Button
+            onClick={() => setActiveQuestion(activeQuestion - 1)}
+            >
             Previos Question
           </Button>
           }
            
                {
-            activeQuestion < mockInterviewQuestions?.length - 1 &&  <Button> 
+            activeQuestion < mockInterviewQuestions?.length - 1 &&  <Button
+            
+            onClick={() => setActiveQuestion(activeQuestion + 1)}
+            > 
             Next Question
           </Button>
                }
           
-
-
+             {
+            activeQuestion == mockInterviewQuestions?.length - 1 && 
+             <Link 
+              href={`/dashboard/interview/${params.interviewId}/feedback`}
+             >
              <Button>
-              Submit Interview
-             </Button>
+            Finish Interview
+          </Button>
+             </Link>
+            
+             }
+
+
           </div>
 
 
